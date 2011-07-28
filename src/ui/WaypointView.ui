@@ -96,7 +96,7 @@ QPushButton:pressed {
      <property name="title">
       <string/>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,5,5,5,50,50,50,50,50,50,5,20,20,5,10,10,10,20,5,5,5,5">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,5,5,5,50,50,50,50,50,50,50,50,50,5,20,20,5,10,10,10,20,5,5,5,5">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -215,13 +215,13 @@ QPushButton:pressed {
          <string> m</string>
         </property>
         <property name="minimum">
-         <double>-10000.000000000000000</double>
+         <double>-99999.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>10000.000000000000000</double>
+         <double>99999.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.050000000000000</double>
+         <double>0.200000000000000</double>
         </property>
        </widget>
       </item>
@@ -249,13 +249,13 @@ QPushButton:pressed {
          <string> m</string>
         </property>
         <property name="minimum">
-         <double>-10000.000000000000000</double>
+         <double>-99999.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>10000.000000000000000</double>
+         <double>99999.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.050000000000000</double>
+         <double>0.200000000000000</double>
         </property>
         <property name="value">
          <double>0.000000000000000</double>
@@ -286,13 +286,70 @@ QPushButton:pressed {
          <string> m</string>
         </property>
         <property name="minimum">
-         <double>-10000.000000000000000</double>
+         <double>-99999.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>10000.000000000000000</double>
+         <double>99999.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.050000000000000</double>
+         <double>0.200000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="enuPosESpinBox">
+        <property name="prefix">
+         <string>E </string>
+        </property>
+        <property name="suffix">
+         <string> m</string>
+        </property>
+        <property name="minimum">
+         <double>-99999.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>99999.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.200000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="enuPosNSpinBox">
+        <property name="prefix">
+         <string>N </string>
+        </property>
+        <property name="suffix">
+         <string> m</string>
+        </property>
+        <property name="minimum">
+         <double>-99999.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>99999.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.200000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="enuPosUSpinBox">
+        <property name="prefix">
+         <string>U </string>
+        </property>
+        <property name="suffix">
+         <string> m</string>
+        </property>
+        <property name="minimum">
+         <double>-99999.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>99999.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.200000000000000</double>
         </property>
        </widget>
       </item>
@@ -604,7 +661,7 @@ Time to stay at this position before advancing</string>
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../../mavground.qrc">
+         <iconset resource="../../qgroundcontrol.qrc">
           <normaloff>:/images/actions/go-up.svg</normaloff>:/images/actions/go-up.svg</iconset>
         </property>
        </widget>
@@ -630,7 +687,7 @@ Time to stay at this position before advancing</string>
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../../mavground.qrc">
+         <iconset resource="../../qgroundcontrol.qrc">
           <normaloff>:/images/actions/go-down.svg</normaloff>:/images/actions/go-down.svg</iconset>
         </property>
        </widget>
@@ -653,7 +710,7 @@ Time to stay at this position before advancing</string>
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../../mavground.qrc">
+         <iconset resource="../../qgroundcontrol.qrc">
           <normaloff>:/images/actions/list-remove.svg</normaloff>:/images/actions/list-remove.svg</iconset>
         </property>
        </widget>
@@ -664,7 +721,7 @@ Time to stay at this position before advancing</string>
   </layout>
  </widget>
  <resources>
-  <include location="../../mavground.qrc"/>
+  <include location="../../qgroundcontrol.qrc"/>
  </resources>
  <connections/>
 </ui>

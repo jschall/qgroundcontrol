@@ -52,7 +52,8 @@ WaypointView::WaypointView(Waypoint* wp, QWidget* parent) :
     // add frames
     m_ui->comboBox_frame->addItem("Abs. Alt/Global",MAV_FRAME_GLOBAL);
     m_ui->comboBox_frame->addItem("Rel. Alt/Global", MAV_FRAME_GLOBAL_RELATIVE_ALT);
-    m_ui->comboBox_frame->addItem("Local/Abs. Alt.",MAV_FRAME_LOCAL);
+    m_ui->comboBox_frame->addItem("NED Local",MAV_FRAME_LOCAL);
+    m_ui->comboBox_frame->addItem("ENU Local",MAV_FRAME_LOCAL_ENU);
     m_ui->comboBox_frame->addItem("Mission",MAV_FRAME_MISSION);
 
     // Initialize view correctly
@@ -67,13 +68,22 @@ WaypointView::WaypointView(Waypoint* wp, QWidget* parent) :
         m_ui->comboBox_action->setCurrentIndex(m_ui->comboBox_action->count()-1);
     }
 
+    // Local / metric NED (Z-down, right-handed) coordinate frame
     connect(m_ui->posNSpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setX(double)));
     connect(m_ui->posESpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setY(double)));
     connect(m_ui->posDSpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setZ(double)));
 
+    // Local / metric ENU (Z-up, right-handed) coordinate frame
+    connect(m_ui->enuPosESpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setX(double)));
+    connect(m_ui->enuPosNSpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setY(double)));
+    connect(m_ui->enuPosUSpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setZ(double)));
+
+    // Global WGS84 coordinate frame
     connect(m_ui->latSpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setLatitude(double)));
     connect(m_ui->lonSpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setLongitude(double)));
     connect(m_ui->altSpinBox, SIGNAL(valueChanged(double)), wp, SLOT(setAltitude(double)));
+
+
     connect(m_ui->yawSpinBox, SIGNAL(valueChanged(int)), wp, SLOT(setYaw(int)));
 
     connect(m_ui->upButton, SIGNAL(clicked()), this, SLOT(moveUp()));
@@ -318,6 +328,9 @@ void WaypointView::updateFrameView(int frame)
         m_ui->lonSpinBox->show();
         m_ui->latSpinBox->show();
         m_ui->altSpinBox->show();
+        m_ui->enuPosESpinBox->hide();
+        m_ui->enuPosNSpinBox->hide();
+        m_ui->enuPosUSpinBox->hide();
         // Coordinate frame
         m_ui->comboBox_frame->show();
         m_ui->customActionWidget->hide();
@@ -329,6 +342,23 @@ void WaypointView::updateFrameView(int frame)
         m_ui->posNSpinBox->show();
         m_ui->posESpinBox->show();
         m_ui->posDSpinBox->show();
+        m_ui->enuPosESpinBox->hide();
+        m_ui->enuPosNSpinBox->hide();
+        m_ui->enuPosUSpinBox->hide();
+        // Coordinate frame
+        m_ui->comboBox_frame->show();
+        m_ui->customActionWidget->hide();
+        break;
+    case MAV_FRAME_LOCAL_ENU:
+        m_ui->lonSpinBox->hide();
+        m_ui->latSpinBox->hide();
+        m_ui->altSpinBox->hide();
+        m_ui->posNSpinBox->hide();
+        m_ui->posESpinBox->hide();
+        m_ui->posDSpinBox->hide();
+        m_ui->enuPosESpinBox->show();
+        m_ui->enuPosNSpinBox->show();
+        m_ui->enuPosUSpinBox->show();
         // Coordinate frame
         m_ui->comboBox_frame->show();
         m_ui->customActionWidget->hide();
@@ -388,6 +418,9 @@ void WaypointView::updateValues()
     switch(frame) {
     case MAV_FRAME_LOCAL: {
         if (m_ui->posNSpinBox->value() != wp->getX()) {
+            // Rounding might occur, prevent spin box from
+            // firing back changes
+            // FIXME IMPLEMENT THIS FOR ALL LOCAL COORDINATES
             m_ui->posNSpinBox->setValue(wp->getX());
         }
         if (m_ui->posESpinBox->value() != wp->getY()) {
@@ -395,6 +428,18 @@ void WaypointView::updateValues()
         }
         if (m_ui->posDSpinBox->value() != wp->getZ()) {
             m_ui->posDSpinBox->setValue(wp->getZ());
+        }
+    }
+    break;
+    case MAV_FRAME_LOCAL_ENU: {
+        if (m_ui->enuPosESpinBox->value() != wp->getX()) {
+            m_ui->enuPosESpinBox->setValue(wp->getX());
+        }
+        if (m_ui->enuPosNSpinBox->value() != wp->getY()) {
+            m_ui->enuPosNSpinBox->setValue(wp->getY());
+        }
+        if (m_ui->enuPosUSpinBox->value() != wp->getZ()) {
+            m_ui->enuPosUSpinBox->setValue(wp->getZ());
         }
     }
     break;
