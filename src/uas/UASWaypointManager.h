@@ -35,9 +35,9 @@ This file is part of the QGROUNDCONTROL project
 #include <QObject>
 #include <QVector>
 #include <QTimer>
-#include "Waypoint.h"
 #include "QGCMAVLink.h"
 class UAS;
+class Waypoint;
 
 /**
  * @brief Implementation of the MAVLINK waypoint protocol
