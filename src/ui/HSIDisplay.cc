@@ -462,6 +462,15 @@ QPointF HSIDisplay::metricWorldToBody(QPointF world)
     return result;
 }
 
+//QPointF HSIDisplay::metricWorldToBodyENU(QPointF world)
+//{
+//    // First translate to body-centered coordinates
+//    // Rotate around -yaw
+//    float angle = yaw + M_PI;
+//    QPointF result(cos(angle) * (x - world.x()) - sin(angle) * (y - world.y()), sin(angle) * (x - world.x()) + cos(angle) * (y - world.y()));
+//    return result;
+//}
+
 QPointF HSIDisplay::metricBodyToWorld(QPointF body)
 {
     // First rotate into world coordinates
@@ -792,13 +801,23 @@ void HSIDisplay::drawWaypoints(QPainter& painter)
 
         for (int i = 0; i < list.size(); i++) {
             QPointF in;
-            if (list.at(i)->getFrame() == MAV_FRAME_LOCAL) {
-                // Do not transform
+            if (list.at(i)->getFrame() == MAV_FRAME_LOCAL)
+            {
+                // Do not transform, this widget is working in NED
                 in = QPointF(list.at(i)->getX(), list.at(i)->getY());
-            } else {
+            }
+            else if (list.at(i)->getFrame() == MAV_FRAME_LOCAL_ENU)
+            {
+                // Transform from ENU to NED
+                // FIXME COMPLETELY UNTESTED! NEEDS PROPER ROTATION INTO NED FRAME
+                in = QPointF(list.at(i)->getX(), -list.at(i)->getY());
+            }
+            else
+            {
                 // Transform to local coordinates first
                 double x = list.at(i)->getX();
                 double y = list.at(i)->getY();
+                // FIXME
                 in = QPointF(x, y);
             }
             // Transform from world to body coordinates
