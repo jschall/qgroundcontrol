@@ -7,15 +7,11 @@ TEMPLATE = app
 TARGET = qgcvideo
 
 BASEDIR = .
-BUILDDIR = build/qgcvideo
+
 LANGUAGE = C++
 
-CONFIG += release
-CONFIG -= debug
 
-OBJECTS_DIR = $$BUILDDIR/obj
-MOC_DIR = $$BUILDDIR/moc
-UI_HEADERS_DIR = src/ui/generated
+
 
 macx:DESTDIR = $$BASEDIR/bin/mac
 
@@ -49,4 +45,4 @@ SOURCES += \
 FORMS += \
     src/apps/qgcvideo/QGCVideoMainWindow.ui
 
-RESOURCES = mavground.qrc
+RESOURCES = qgroundcontrol.qrc
